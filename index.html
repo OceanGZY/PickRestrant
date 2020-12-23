@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>今天吃什么好呢？</title>
+    <meta name="author" content=AbnerMing />
+    <link rel="stylesheet" type="text/css" href="css/animate.css" />
+    <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js">
+    </script>
+    <script src="js/animate.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>
+
+    <div class="selecttype">
+        <div class="change" id="change">切换</div>
+    </div>
+    <article>
+        <p class="text" id="text"></p>
+    </article>
+    <div class="div_bottom">
+        <div id="btn" class="btn">今天吃什么好呢？</div>
+    </div>
+
+
+    <script type="text/javascript">
+        var result;
+        var neontext;
+        var isClick = true;
+        $(function () {
+            console.log(localStorage.getItem("selecttype"));
+            if (localStorage.getItem("selecttype") == "waimai") {
+                $.get("waimaidata.txt", function (data, status) {
+                    var json = JSON.parse(data);
+                    if (json.status == "0000") {//成功
+                        result = json.result;
+                        var content = "";
+                        for (var i = 0; i < result.length; i++) {
+                            var con = result[i];
+                            content = content + con + " ";
+                        }
+                        $(".text").text(content);
+                        neontext = new Animate("text");
+                        neontext.render.run();
+                    } else {
+                        alert(json.message);//否则给出提示
+                    }
+
+                });
+            } else if (localStorage.getItem("selecttype") == "daodian") {
+                $.get("daodiandata.txt", function (data, status) {
+                    var json = JSON.parse(data);
+                    if (json.status == "0000") {//成功
+                        result = json.result;
+                        var content = "";
+                        for (var i = 0; i < result.length; i++) {
+                            var con = result[i];
+                            content = content + con + " ";
+                        }
+                        $(".text").text(content);
+                        neontext = new Animate("text");
+                        neontext.render.run();
+                    } else {
+                        alert(json.message);//否则给出提示
+                    }
+
+                });
+
+            }
+
+            $("#change").click(function () {
+                if (localStorage.getItem("selecttype") == "waimai") {
+                    localStorage.setItem("name", "");
+                    localStorage.setItem("vip", "");
+
+                    $.get("daodiandata.txt", function (data, status) {
+                        var json = JSON.parse(data);
+                        if (json.status == "0000") {//成功
+                            result = json.result;
+                            localStorage.setItem("selecttype", "daodian");
+                            var content = "";
+                            for (var i = 0; i < result.length; i++) {
+                                var con = result[i];
+                                content = content + con + " ";
+                            }
+                            $(".text").text(content);
+                            neontext = new Animate("text");
+                            neontext.render.run();
+                        } else {
+                            alert(json.message);//否则给出提示
+                        }
+
+                    });
+                } else if (localStorage.getItem("selecttype") == "daodian") {
+                    localStorage.setItem("name", "");
+                    localStorage.setItem("vip", "");
+                    $.get("waimaidata.txt", function (data, status) {
+                        var json = JSON.parse(data);
+                        if (json.status == "0000") {//成功
+                            result = json.result;
+                            localStorage.setItem("selecttype", "waimai");
+                            var content = "";
+                            for (var i = 0; i < result.length; i++) {
+                                var con = result[i];
+                                content = content + con + " ";
+                            }
+                            $(".text").text(content);
+                            neontext = new Animate("text");
+                            neontext.render.run();
+                        } else {
+                            alert(json.message);//否则给出提示
+                        }
+
+                    });
+
+                }
+
+
+            });
+
+            $("#btn").click(function () {
+                console.log("被点击");
+                if (isClick) {
+                    randomNum(result);
+                    console.log(isClick);
+                    isClick = false;
+                    $(".btn").text("放弃这个IDEA");
+                } else {
+                    isClick = true;
+                }
+                neontext.render.killer(isClick);
+            });
+
+
+            //去重
+            function randomNum(nameArr) {
+                var size = nameArr.length;
+                console.log(nameArr);
+                var a = 0;
+                while (true) {
+                    a++;
+                    console.log("a" + a);
+                    var num = Math.floor(Math.random() * size);
+                    console.log("num" + num);
+                    console.log(localStorage);
+                    var name = localStorage.getItem("name");
+                    console.log("name" + name);
+                    if ((name + "").indexOf(num) == -1) {
+                        localStorage.setItem("name", name + "=" + num);
+                        localStorage.setItem("vip", nameArr[num]);
+                        break;
+                    }
+                    if (a == size - 1) {
+
+                        alert("重试次数较多！刷新后可重新开始");
+                        $(".text").text("");
+                        localStorage.setItem("name", "");
+                        localStorage.setItem("vip", "");
+                        break;//停止
+                    }
+                }
+
+            }
+
+            $(".reset").click(function () {
+                console.log("触发重置");
+                localStorage.setItem("name", "");
+                localStorage.setItem("vip", "");
+            });
+
+            $('.selecttypecard').slideDown(1000);
+        });
+
+    </script>
+</body>
+
+</html>
