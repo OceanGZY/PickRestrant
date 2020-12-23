@@ -131,18 +131,20 @@ function Animate(id) {
  
         this.spanArr.forEach(function (value, index) {
             var text = value.innerText;
-            var x = value.own.pos.x - value.own.pos.x * _this.resetTime / 100 - 100;
+            var x = value.own.pos.x - value.own.pos.x * _this.resetTime / 100 - 400;
             var y = value.own.pos.y - value.own.pos.y * _this.resetTime / 100 - 100;
             var vip = localStorage.getItem("vip");
             if (vip == text) {
                 if (boolClick) {
                     var tTop = value.getBoundingClientRect().top;
+                    // console.log(value,index);
                     var tLeft = value.getBoundingClientRect().left;
                     var sizeW = winW / 2;
                     var sizeH = winH / 2;
                     var s = value.getBoundingClientRect().width / 3;
                     var endX = sizeW - tLeft - s * 2;
                     var endY = sizeH - tTop - 36;
+                    // console.log(endY,index);
  
                     $(value).animate({top: endY, left: endX, fontSize: '36px'});
                     boolClick = false;
