@@ -29,46 +29,10 @@
         var result;
         var neontext;
         var isClick = true;
-        var daodiandata = {
-            "result": [
-                "食堂-吃饭",
-                "食堂-吃面",
-                "食堂-喝粥",
-                "肯德基",
-                "吉野家",
-                "喜士多",
-                "陕老顺",
-                "王胖胖煎饼",
-                "王胖胖烤冷面",
-                "黄山菜饭",
-                "汉堡王",
-                "掌上韩品",
-                "伊清牛肉面",
-                "新德兴",
-                "小火锅",
-                "螺蛳粉",
-                "赛百味",
-                "喵喵智选",
-                "买水果"
-            ],
-            "message": "成功",
-            "status": "0000"
-        };
-        var waimaidata = {
-            "result": [
-                "肯德基",
-                "汉堡王",
-                "掌上韩品"
-            ],
-            "message": "成功",
-            "status": "0000"
-        };
-
-
         $(function () {
             console.log(localStorage.getItem("selecttype"));
             if (localStorage.getItem("selecttype") == "waimai") {
-                $.get(waimaidata, function (data, status) {
+                $.get("waimaidata.txt", function (data, status) {
                     var json = JSON.parse(data);
                     if (json.status == "0000") {//成功
                         result = json.result;
@@ -86,7 +50,7 @@
 
                 });
             } else if (localStorage.getItem("selecttype") == "daodian") {
-                $.get(daodiandata, function (data, status) {
+                $.get("daodiandata.txt", function (data, status) {
                     var json = JSON.parse(data);
                     if (json.status == "0000") {//成功
                         result = json.result;
@@ -111,7 +75,7 @@
                     localStorage.setItem("name", "");
                     localStorage.setItem("vip", "");
 
-                    $.get(daodiandata, function (data, status) {
+                    $.get("daodiandata.txt", function (data, status) {
                         var json = JSON.parse(data);
                         if (json.status == "0000") {//成功
                             result = json.result;
@@ -132,7 +96,7 @@
                 } else if (localStorage.getItem("selecttype") == "daodian") {
                     localStorage.setItem("name", "");
                     localStorage.setItem("vip", "");
-                    $.get(waimaidata, function (data, status) {
+                    $.get("waimaidata.txt", function (data, status) {
                         var json = JSON.parse(data);
                         if (json.status == "0000") {//成功
                             result = json.result;
