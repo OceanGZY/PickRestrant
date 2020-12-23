@@ -68,6 +68,25 @@
 
                 });
 
+            }else{
+                $.get("waimaidata.txt", function (data, status) {
+                    var json = JSON.parse(data);
+                    if (json.status == "0000") {//成功
+                        result = json.result;
+                        localStorage.setItem("selecttype", "waimai");
+                        var content = "";
+                        for (var i = 0; i < result.length; i++) {
+                            var con = result[i];
+                            content = content + con + " ";
+                        }
+                        $(".text").text(content);
+                        neontext = new Animate("text");
+                        neontext.render.run();
+                    } else {
+                        alert(json.message);//否则给出提示
+                    }
+
+                });
             }
 
             $("#change").click(function () {
