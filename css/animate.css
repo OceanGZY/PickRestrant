@@ -4,7 +4,7 @@
 }
 
 html {
-  /* font-family: "微软雅黑"; */
+  font-family: "微软雅黑";
   font-size: 20px;
 }
 
@@ -28,7 +28,7 @@ p {
   height: 50px;
   background: orange;
   color: #ffffff;
-  /* font-family: "微软雅黑"; */
+  font-family: "微软雅黑";
   border-radius: 10px;
   border: 1px solid orange;
   text-align: center;
