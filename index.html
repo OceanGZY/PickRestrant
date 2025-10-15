@@ -14,9 +14,9 @@
 
 <body>
 
-    <div class="selecttype">
+    <!-- <div class="selecttype">
         <div class="change" id="change">切换</div>
-    </div>
+    </div> -->
     <article>
         <p class="text" id="text"></p>
     </article>
@@ -31,8 +31,8 @@
         var isClick = true;
         $(function () {
             console.log(localStorage.getItem("selecttype"));
-            if (localStorage.getItem("selecttype") == "waimai") {
-                $.get("waimaidata.txt", function (data, status) {
+            if (localStorage.getItem("selecttype") == "caipu") {
+                $.get("caipu.txt", function (data, status) {
                     var json = JSON.parse(data);
                     if (json.status == "0000") {//成功
                         result = json.result;
@@ -49,8 +49,8 @@
                     }
 
                 });
-            } else if (localStorage.getItem("selecttype") == "daodian") {
-                $.get("daodiandata.txt", function (data, status) {
+            } else if (localStorage.getItem("selecttype") == "caipu") {
+                $.get("caipu.txt", function (data, status) {
                     var json = JSON.parse(data);
                     if (json.status == "0000") {//成功
                         result = json.result;
@@ -73,7 +73,7 @@
                     var json = JSON.parse(data);
                     if (json.status == "0000") {//成功
                         result = json.result;
-                        localStorage.setItem("selecttype", "waimai");
+                        localStorage.setItem("selecttype", "caipu");
                         var content = "";
                         for (var i = 0; i < result.length; i++) {
                             var con = result[i];
@@ -92,11 +92,11 @@
             $("#change").click(function () {
                 console.log(($(".btn").text()));
                 if ($(".btn").text() == "今天吃什么好呢？") {
-                    if (localStorage.getItem("selecttype") == "waimai") {
+                    if (localStorage.getItem("selecttype") == "caipu") {
                         localStorage.setItem("name", "");
                         localStorage.setItem("vip", "");
 
-                        $.get("daodiandata.txt", function (data, status) {
+                        $.get("caipu.txt", function (data, status) {
                             var json = JSON.parse(data);
                             if (json.status == "0000") {//成功
                                 result = json.result;
@@ -114,10 +114,10 @@
                             }
 
                         });
-                    } else if (localStorage.getItem("selecttype") == "daodian") {
+                    } else if (localStorage.getItem("selecttype") == "caipu") {
                         localStorage.setItem("name", "");
                         localStorage.setItem("vip", "");
-                        $.get("waimaidata.txt", function (data, status) {
+                        $.get("caipu.txt", function (data, status) {
                             var json = JSON.parse(data);
                             if (json.status == "0000") {//成功
                                 result = json.result;
@@ -141,7 +141,7 @@
                     $(".btn").text("今天吃什么好呢？");
                     isClick = true;
                     neontext.render.killer(isClick);
-                    if (localStorage.getItem("selecttype") == "waimai") {
+                    if (localStorage.getItem("selecttype") == "caipu") {
                         localStorage.setItem("name", "");
                         localStorage.setItem("vip", "");
 
@@ -149,7 +149,7 @@
                             var json = JSON.parse(data);
                             if (json.status == "0000") {//成功
                                 result = json.result;
-                                localStorage.setItem("selecttype", "daodian");
+                                localStorage.setItem("selecttype", "caipu");
                                 var content = "";
                                 for (var i = 0; i < result.length; i++) {
                                     var con = result[i];
@@ -163,14 +163,14 @@
                             }
 
                         });
-                    } else if (localStorage.getItem("selecttype") == "daodian") {
+                    } else if (localStorage.getItem("selecttype") == "caipu") {
                         localStorage.setItem("name", "");
                         localStorage.setItem("vip", "");
-                        $.get("waimaidata.txt", function (data, status) {
+                        $.get("caipu.txt", function (data, status) {
                             var json = JSON.parse(data);
                             if (json.status == "0000") {//成功
                                 result = json.result;
-                                localStorage.setItem("selecttype", "waimai");
+                                localStorage.setItem("selecttype", "caipu");
                                 var content = "";
                                 for (var i = 0; i < result.length; i++) {
                                     var con = result[i];
