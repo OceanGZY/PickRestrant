@@ -30,166 +30,31 @@
         var neontext;
         var isClick = true;
         $(function () {
-            console.log(localStorage.getItem("selecttype"));
-            if (localStorage.getItem("selecttype") == "caipu") {
-                $.get("caipu.txt", function (data, status) {
-                    var json = JSON.parse(data);
-                    if (json.status == "0000") {//成功
-                        result = json.result;
-                        var content = "";
-                        for (var i = 0; i < result.length; i++) {
-                            var con = result[i];
-                            content = content + con + " ";
-                        }
-                        $(".text").text(content);
-                        neontext = new Animate("text");
-                        neontext.render.run();
-                    } else {
-                        alert(json.message);//否则给出提示
+            $.get("caipu.txt", function (data, status) {
+                var json = JSON.parse(data);
+                if (json.status == "0000") {//成功
+                    result = json.result;
+                    localStorage.setItem("selecttype", "caipu");
+                    var content = "";
+                    for (var i = 0; i < result.length; i++) {
+                        var con = result[i];
+                        content = content + con + " ";
                     }
-
-                });
-            } else if (localStorage.getItem("selecttype") == "caipu") {
-                $.get("caipu.txt", function (data, status) {
-                    var json = JSON.parse(data);
-                    if (json.status == "0000") {//成功
-                        result = json.result;
-                        var content = "";
-                        for (var i = 0; i < result.length; i++) {
-                            var con = result[i];
-                            content = content + con + " ";
-                        }
-                        $(".text").text(content);
-                        neontext = new Animate("text");
-                        neontext.render.run();
-                    } else {
-                        alert(json.message);//否则给出提示
+                    for (var i = 0; i < result.length; i++) {
+                        var con = result[i];
+                        content = content + con + " ";
                     }
-
-                });
-
-            } else {
-                $.get("waimaidata.txt", function (data, status) {
-                    var json = JSON.parse(data);
-                    if (json.status == "0000") {//成功
-                        result = json.result;
-                        localStorage.setItem("selecttype", "caipu");
-                        var content = "";
-                        for (var i = 0; i < result.length; i++) {
-                            var con = result[i];
-                            content = content + con + " ";
-                        }
-                        $(".text").text(content);
-                        neontext = new Animate("text");
-                        neontext.render.run();
-                    } else {
-                        alert(json.message);//否则给出提示
-                    }
-
-                });
-            }
-
-            $("#change").click(function () {
-                console.log(($(".btn").text()));
-                if ($(".btn").text() == "今天吃什么好呢？") {
-                    if (localStorage.getItem("selecttype") == "caipu") {
-                        localStorage.setItem("name", "");
-                        localStorage.setItem("vip", "");
-
-                        $.get("caipu.txt", function (data, status) {
-                            var json = JSON.parse(data);
-                            if (json.status == "0000") {//成功
-                                result = json.result;
-                                localStorage.setItem("selecttype", "daodian");
-                                var content = "";
-                                for (var i = 0; i < result.length; i++) {
-                                    var con = result[i];
-                                    content = content + con + " ";
-                                }
-                                $(".text").text(content);
-                                neontext = new Animate("text");
-                                neontext.render.run();
-                            } else {
-                                alert(json.message);//否则给出提示
-                            }
-
-                        });
-                    } else if (localStorage.getItem("selecttype") == "caipu") {
-                        localStorage.setItem("name", "");
-                        localStorage.setItem("vip", "");
-                        $.get("caipu.txt", function (data, status) {
-                            var json = JSON.parse(data);
-                            if (json.status == "0000") {//成功
-                                result = json.result;
-                                localStorage.setItem("selecttype", "waimai");
-                                var content = "";
-                                for (var i = 0; i < result.length; i++) {
-                                    var con = result[i];
-                                    content = content + con + " ";
-                                }
-                                $(".text").text(content);
-                                neontext = new Animate("text");
-                                neontext.render.run();
-                            } else {
-                                alert(json.message);//否则给出提示
-                            }
-
-                        });
-
-                    }
+                    console.log(content);
+                    $(".text").text(content);
+                    neontext = new Animate("text");
+                    neontext.render.run();
                 } else {
-                    $(".btn").text("今天吃什么好呢？");
-                    isClick = true;
-                    neontext.render.killer(isClick);
-                    if (localStorage.getItem("selecttype") == "caipu") {
-                        localStorage.setItem("name", "");
-                        localStorage.setItem("vip", "");
-
-                        $.get("daodiandata.txt", function (data, status) {
-                            var json = JSON.parse(data);
-                            if (json.status == "0000") {//成功
-                                result = json.result;
-                                localStorage.setItem("selecttype", "caipu");
-                                var content = "";
-                                for (var i = 0; i < result.length; i++) {
-                                    var con = result[i];
-                                    content = content + con + " ";
-                                }
-                                $(".text").text(content);
-                                neontext = new Animate("text");
-                                neontext.render.run();
-                            } else {
-                                alert(json.message);//否则给出提示
-                            }
-
-                        });
-                    } else if (localStorage.getItem("selecttype") == "caipu") {
-                        localStorage.setItem("name", "");
-                        localStorage.setItem("vip", "");
-                        $.get("caipu.txt", function (data, status) {
-                            var json = JSON.parse(data);
-                            if (json.status == "0000") {//成功
-                                result = json.result;
-                                localStorage.setItem("selecttype", "caipu");
-                                var content = "";
-                                for (var i = 0; i < result.length; i++) {
-                                    var con = result[i];
-                                    content = content + con + " ";
-                                }
-                                $(".text").text(content);
-                                neontext = new Animate("text");
-                                neontext.render.run();
-                            } else {
-                                alert(json.message);//否则给出提示
-                            }
-
-                        });
-
-                    }
-
+                    alert(json.message);//否则给出提示
                 }
 
             });
+
+
 
             $("#btn").click(function () {
                 console.log("被点击");
@@ -214,17 +79,21 @@
                     a++;
                     console.log("a" + a);
                     var num = Math.floor(Math.random() * size);
+                    var num1 = Math.floor(Math.random() * size);
                     console.log("num" + num);
                     console.log(localStorage);
                     var name = localStorage.getItem("name");
                     console.log("name" + name);
-                    if ((name + "").indexOf(num) == -1) {
-                        localStorage.setItem("name", name + "=" + num);
-                        localStorage.setItem("vip", nameArr[num]);
+                    if ((name + "").indexOf(num) == -1 || (name + "").indexOf(num1) == -1) {
+                        localStorage.setItem("name", name + "=" + num + "-" + num1);
+                        localStorage.setItem("vip", nameArr[num] + " " + nameArr[num1]);
+                        console.log("name" + name);
+                        console.log("vip" + localStorage.getItem("vip"));
+                        $(".text").text(nameArr[num] + " " + nameArr[num1]);
                         break;
                     }
-                    if (a == size - 1) {
 
+                    if (a == size - 1) {
                         alert("重试次数较多！刷新后可重新开始");
                         $(".text").text("");
                         localStorage.setItem("name", "");
@@ -245,6 +114,13 @@
         });
 
     </script>
+    <style>
+        article {
+            width: 100%;
+            height: 100%;
+            color: bisque
+        }
+    </style>
 </body>
 
 </html>
